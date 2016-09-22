@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#666" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="#8fff"
+        android:orientation="horizontal" >
+        <!-- 播放歌名 -->
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2" >
+
+            <ImageView
+                android:id="@+id/music_menu_album_ico"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="4dp"
+                android:src="@drawable/ic_ico" />
+
+            <TextView
+                android:id="@+id/music_menu_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/music_menu_album_ico"
+                android:layout_alignLeft="@+id/music_menu_name"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/music_menu_name"
+                android:paddingLeft="4dp"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="@color/main_color"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/music_menu_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/music_menu_album_ico"
+                android:layout_toRightOf="@+id/music_menu_album_ico"
+                android:padding="4dp"
+                android:text="正在播放："
+                android:textColor="@color/main_color"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <!-- 暂停 开始 -->
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <ImageButton
+                android:id="@+id/music_menu_play"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:padding="4dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_music_menu_play" />
+
+            <ImageButton
+                android:id="@+id/music_menu_play"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:background="@null"
+                android:padding="4dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/next_selector" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

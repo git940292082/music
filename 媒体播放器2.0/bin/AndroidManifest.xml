@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.zyj.zyj"
+    android:versionCode="1"
+    android:versionName="2.0" >
+
+    <uses-sdk
+        android:minSdkVersion="16"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name="com.zyj.app.App"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_ico"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
+        <service android:name="com.zyj.services.MusicService" >
+            <intent-filter>
+                <action android:name="music.zyj.action.musicservice2.0" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name="com.zyj.main.MainMenuFram"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.zyj.fragment.PictureMenuFram"
+            android:label="@string/title_activity_my" >
+        </activity>
+        <activity
+            android:name="com.zyj.fragment.MineMenuFram"
+            android:label="@string/title_activity_more"
+            android:parentActivityName="android.support.v4.app.Fragment" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="android.support.v4.app.Fragment" />
+        </activity>
+        <activity
+            android:name="com.menu.zyj.MusicSearch"
+            android:label="@string/title_activity_music_search" >
+        </activity>
+        <activity android:name="com.zyj.main.MusicPlaying" >
+        </activity>
+        <activity
+            android:name="com.zyj.main.PicShowActivity"
+            android:label="@string/title_activity_pic_show" >
+        </activity>
+        <activity
+            android:name="com.zyj.main.LoginDialog"
+            android:label="@string/title_activity_login_dialog"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar.MinWidth" >
+        </activity>
+        <activity
+            android:name="com.zyj.main.RegistActivity"
+            android:label="@string/title_activity_regist" >
+        </activity>
+        <activity
+            android:name="com.zyj.main.MusicPlayingMenu"
+            android:label="@string/title_activity_music_playing_menu" >
+        </activity>
+        <activity
+            android:name="com.zyj.main.SearchActivity"
+            android:label="@string/title_activity_search" >
+        </activity>
+
+        <service android:name="com.zyj.services.DownloadService" >
+        </service>
+
+        <receiver android:name="com.zyj.services.MusicAppWidget" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/music_appwidget" />
+        </receiver>
+    </application>
+
+</manifest>

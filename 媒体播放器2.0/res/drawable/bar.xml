@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+      <!-- 配置进度条的背景，即：没有到达的进度的颜色 -->
+    <item android:id="@android:id/background">
+        <color android:color="#fff" />
+    </item>
+    
+    <!-- 配置进度条的进度颜色，即：已经到达的进度的颜色 -->
+    <item android:id="@android:id/progress">
+        <clip>
+        	<color android:color="#f73a56" />
+        </clip>
+    </item>
+
+</layer-list>

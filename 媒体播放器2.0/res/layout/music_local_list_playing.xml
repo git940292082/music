@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#6682e7fc"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/music_local_list_sumtime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:padding="8dp"
+        android:text="时间"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/music_local_list_people"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/music_local_list_name"
+        android:layout_below="@+id/music_local_list_name"
+        android:paddingLeft="8dp"
+        android:text="人名"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="12sp"
+         />
+
+    <TextView
+        android:id="@+id/music_local_list_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/music_local_list_sumtime"
+        android:padding="8dp"
+        android:singleLine="true"
+        android:text="歌名"
+        android:layout_marginLeft="10dp"
+        android:textColor="#f73a66"
+        android:textSize="18sp" />
+
+</RelativeLayout>
