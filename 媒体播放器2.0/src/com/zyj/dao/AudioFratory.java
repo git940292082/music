@@ -15,7 +15,4 @@ public abstract class AudioFratory {
 		return new PicturesDao(cr);
 		
 	}
-	public static IDao<Video> getVideos(ContentResolver cr){
-		return new VideoDao(cr);
-	}
 }

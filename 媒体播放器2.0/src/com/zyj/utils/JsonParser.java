@@ -8,6 +8,7 @@ import org.json.JSONObject;
 
 import com.zyj.example.SongInfo;
 import com.zyj.example.SongUrl;
+import com.zyj.example.Video;
 public class JsonParser {
 
 	public static List<SongUrl> parserUrl(JSONArray urlarr) throws Exception {
@@ -27,10 +28,30 @@ public class JsonParser {
 		}
 		return urls;
 	}
+	public static List<Video> getVideo(String js) throws Exception{
+		List<Video> videos=new ArrayList<Video>();
+		JSONObject json=new JSONObject(js);
+		JSONArray jsr=json.getJSONArray("V9LG4B3A0");
+		for(int i=0;i<jsr.length();i++){
+			JSONObject jo=jsr.getJSONObject(i);
+			Video video=new Video(
+					jo.getString("topicImg"),
+					jo.getString("videosource"), 
+					jo.getString("mp4Hd_url"), 
+					jo.getString("topicDesc"),
+					jo.getString("cover"), 
+					jo.getString("title"),
+					jo.getString("mp4_url"), 
+					jo.getString("ptime"), 
+					jo.getString("topicName"));
+			videos.add(video);
+		}
+		return videos;
 
+	}
 	public static SongInfo ParserInfo(JSONObject jsonInfo) throws Exception{
 		// TODO Auto-generated method stub
-		
+
 		SongInfo info=new SongInfo(
 				jsonInfo.getString("pic_huge"),
 				jsonInfo.getString("album_1000_1000"), 
@@ -56,8 +77,8 @@ public class JsonParser {
 				jsonInfo.getString("author"), 
 				jsonInfo.getString("pic_small"), 
 				jsonInfo.getString("song_id"));
-		
+
 		return info;
 	}
-	
+
 }

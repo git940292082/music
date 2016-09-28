@@ -2,29 +2,121 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:weightSum="8"
-    >
+    android:background="#eee"
+    android:orientation="vertical"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="15dp" >
 
     <TextView
-        android:id="@+id/video_tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="TextView" />
+        android:id="@+id/video_news_tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/ic_item_bg"
+        android:gravity="center_vertical"
+        android:paddingLeft="10dp"
+        android:singleLine="true"
+        android:text="新闻快讯"
+        android:textColor="#fff"
+        android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/video_tv_duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="#f73a56"
+        android:minWidth="220dp"
+        android:paddingBottom="1dp"
+        android:paddingLeft="1dp"
+        android:paddingRight="1dp" >
 
-    <MediaController
-        android:id="@+id/mediaController1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="2" >
-    </MediaController>
+        <VideoView
+            android:id="@+id/video_vv"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:minHeight="220dp" />
+
+        <Button
+            android:id="@+id/video_rl_visi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null" />
+
+        <!-- 进度条 -->
+        <ImageView
+            android:id="@+id/video_bg"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="#ddd"
+            android:minHeight="220dp"
+            android:scaleType="fitXY" />
+
+        <RelativeLayout
+            android:id="@+id/video_rl_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:background="#6000"
+            android:gravity="center"
+            android:visibility="gone" 
+            >
+
+            <TextView
+                android:id="@+id/video_nowtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="00:00"
+                android:textColor="#fff"
+                android:textSize="12sp" />
+
+            <SeekBar
+                android:id="@+id/video_seekbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/video_sumtime"
+                android:layout_toRightOf="@+id/video_nowtime"
+                android:max="100"
+                android:maxHeight="2dp"
+                android:minHeight="2dp"
+                android:progressDrawable="@drawable/bar"
+                android:thumb="@drawable/ic_video_thumb"
+                android:thumbOffset="1dp" />
+
+            <TextView
+                android:id="@+id/video_sumtime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="00:00"
+                android:textColor="#fff"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/video_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:scaleType="center"
+            android:src="@drawable/ic_play_pressed" />
+
+        <ProgressBar
+            android:id="@+id/video_cache"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
 </LinearLayout>

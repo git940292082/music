@@ -1,5 +1,6 @@
 package com.zyj.main;
 
+import com.zyj.fragment.FramVideo;
 import com.zyj.fragment.MineMenuFram;
 import com.zyj.fragment.MusicMenuFram;
 import com.zyj.fragment.PictureMenuFram;
@@ -26,7 +27,7 @@ public class MainMenuFram extends FragmentActivity implements OnPageChangeListen
 	private MusicMenuFram musicframe=new MusicMenuFram();
 	private PictureMenuFram pictureframe=new PictureMenuFram();
 	private MineMenuFram mineframe=new MineMenuFram();
-	private VideoMenuFram videoFrame=new VideoMenuFram();
+	private FramVideo videoFrame=new FramVideo();
 	private Intent i;
 	private ViewPager fragmentPage;
 	private FragmentAdapter fragmentAdapter;

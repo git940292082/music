@@ -21,6 +21,10 @@ public class UrlFactory {
 		}
 		String url="http://tingapi.ting.baidu.com/v1/restserver/ting?from=qianqian&version=2.1.0&method=baidu.ting.search.common&format=xml&query="+searchEd+"&page_no=1&page_size=30";
 		return url;
-		
 	}
+	public static String getVideoUrl(int fromIndex){
+		String url="http://c.m.163.com/nc/video/list/V9LG4B3A0/y/"+fromIndex+"-"+(fromIndex+20)+".html";
+		return url;
+	}
+	
 }
