@@ -21,11 +21,15 @@ public class MusicLineFram extends Fragment {
 	private Button btXin;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {  
-		layout= inflater.inflate(R.layout.music_line_fram,container, false);
-		loadView();
-		loadListener();
-		loadData();
-		
+
+		if(layout==null){
+			layout= inflater.inflate(R.layout.music_line_fram,container, false);
+			loadView();
+			loadListener();
+			loadData();
+		}else{
+			((ViewPager) layout.getParent()).removeView(layout);
+		}
 		return layout;  
 	} 
 	private void loadView() {
@@ -66,7 +70,7 @@ public class MusicLineFram extends Fragment {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			
+
 			switch (v.getId()) {
 			case R.id.music_line_bt_xin:
 				show(new MusicLineFramList1("ÐÂ¸è°ñ",1,0));
@@ -88,5 +92,5 @@ public class MusicLineFram extends Fragment {
 			}
 		}
 	}
-	
+
 }

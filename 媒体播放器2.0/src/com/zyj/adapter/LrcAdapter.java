@@ -19,6 +19,7 @@ public class LrcAdapter extends MyAdapter<Lrc> {
 	public int getViewTypeCount() {
 		// TODO Auto-generated method stub
 		return 2;
+		
 	}
 	@Override
 	public int getItemViewType(int position) {

@@ -53,12 +53,13 @@ public class MusicLineFramList1 extends Fragment implements OnItemClickListener,
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if(layout==null){
 			layout= inflater.inflate(R.layout.music_line_fram_list,null);
+			loadView();
+			loadLitener();
+			loadData();
 		}else{
 			((ViewGroup) layout.getParent()).removeView(layout); 
 		}
-		loadView();
-		loadLitener();
-		loadData();
+		
 		return layout;
 	}
 

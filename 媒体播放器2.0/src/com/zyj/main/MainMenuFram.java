@@ -4,7 +4,6 @@ import com.zyj.fragment.FramVideo;
 import com.zyj.fragment.MineMenuFram;
 import com.zyj.fragment.MusicMenuFram;
 import com.zyj.fragment.PictureMenuFram;
-import com.zyj.fragment.VideoMenuFram;
 import com.zyj.zyj.R;
 
 import android.app.AlertDialog;
@@ -69,16 +68,16 @@ public class MainMenuFram extends FragmentActivity implements OnPageChangeListen
 		public void onCheckedChanged(RadioGroup group, int checkedId) {
 			switch (checkedId) {
 			case R.id.rd_music:
-				fragmentPage.setCurrentItem(0);
+				fragmentPage.setCurrentItem(0,false);
 				break;
 			case R.id.rd_video:
-				fragmentPage.setCurrentItem(1);
+				fragmentPage.setCurrentItem(1,false);
 				break;
 			case R.id.rd_picture:	
-				fragmentPage.setCurrentItem(2);
+				fragmentPage.setCurrentItem(2,false);
 				break;
 			case R.id.rd_mine:
-				fragmentPage.setCurrentItem(3);
+				fragmentPage.setCurrentItem(3,false);
 				break;
 			}
 		}

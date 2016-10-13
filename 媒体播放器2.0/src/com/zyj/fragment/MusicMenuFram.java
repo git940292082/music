@@ -52,30 +52,25 @@ public class MusicMenuFram extends Fragment implements OnClickListener,OnPageCha
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {  
 		if(layout==null){
 			layout= inflater.inflate(R.layout.music_menu_fram, container, false);
+			loadView();
+			loadListener();
+			laodDate();
 		}else{
 			((ViewGroup) layout.getParent()).removeView(layout); 
 		}
 		return layout;
 	} 
-	@Override
 
-	public void onActivityCreated(Bundle savedInstanceState) {  
-		super.onActivityCreated(savedInstanceState); 
-		loadView();
-		loadListener();
-		laodDate();
-	}
 
 	private void loadView() {
-		btMusicLocal=(Button)getView().findViewById(R.id.music_bt_local);
-		btMusicLine=(Button)getView().findViewById(R.id.music_bt_line);
-		btMusicSearch=(ImageButton) getView().findViewById(R.id.music_bt_search);
-		btPlayOrPause=(ImageButton)getView().findViewById(R.id.music_menu_play);
-		tvNowTime=(TextView)getView().findViewById(R.id.music_menu_nowtime);
-		ImgIco=(ImageView)getView().findViewById(R.id.music_menu_album_ico);
-		tvTitle=(TextView)getView().findViewById(R.id.music_menu_title);
-		SeekBar=(ProgressBar)getView().findViewById(R.id.music_menu_bar);
-
+		btMusicLocal=(Button)layout.findViewById(R.id.music_bt_local);
+		btMusicLine=(Button)layout.findViewById(R.id.music_bt_line);
+		btMusicSearch=(ImageButton) layout.findViewById(R.id.music_bt_search);
+		btPlayOrPause=(ImageButton)layout.findViewById(R.id.music_menu_play);
+		tvNowTime=(TextView)layout.findViewById(R.id.music_menu_nowtime);
+		ImgIco=(ImageView)layout.findViewById(R.id.music_menu_album_ico);
+		tvTitle=(TextView)layout.findViewById(R.id.music_menu_title);
+		SeekBar=(ProgressBar)layout.findViewById(R.id.music_menu_bar);
 	}
 	private void loadListener() {
 		// TODO Auto-generated method stub

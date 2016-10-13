@@ -34,12 +34,10 @@ public class PictureAdapter extends MyAdapter<Pictures>{
 	List<View666> imgs=new ArrayList<View666>();
 	private PictureThread thread;
 	public boolean isRunnin=true;
-	Animation imgsAim = AnimationUtils.loadAnimation(getContext(), R.anim.img_set);
 	private Handler hander=new Handler(){
 		public void handleMessage(Message msg) {
 			View666 view=(View666) msg.obj;
 			view.img.setImageBitmap(view.bm);
-			view.img.startAnimation(imgsAim);
 		};
 	};
 	public PictureAdapter(List<Pictures> data, Context context) {

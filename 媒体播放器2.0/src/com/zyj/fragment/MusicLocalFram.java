@@ -30,12 +30,13 @@ public class MusicLocalFram extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {  
 		if(layout==null){
 			layout= inflater.inflate(R.layout.music_local_fram, container, false);
+			loadview();
+			loadlietner();
+			loaddate();
 		}else{
 			((ViewGroup) layout.getParent()).removeView(layout); 
 		}
-		loadview();
-		loadlietner();
-		loaddate();
+	
 		return layout;  
 	}
 	//³õÊ¼»¯¿Ø¼þ

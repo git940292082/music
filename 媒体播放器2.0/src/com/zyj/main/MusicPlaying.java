@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.zyj.adapter.LrcAdapter;
+import com.zyj.adapter.MusicAdapter;
 import com.zyj.app.App;
 import com.zyj.example.Lrc;
 import com.zyj.example.Music;
@@ -29,15 +30,23 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.SeekBar;
 import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -60,6 +69,10 @@ public class MusicPlaying extends Activity{
 	private ListView lvLrc;
 	private Button btMenu;
 	private ImageButton btDownload;
+	private View view;
+	private ListView lvMusic;
+	private PopupWindow popuwindow;
+	private MusicAdapter adapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -85,6 +98,8 @@ public class MusicPlaying extends Activity{
 		lvLrc=(ListView)findViewById(R.id.music_playing_lv_lrc);
 		layout=(LinearLayout) findViewById(R.id.music_play_layout);
 		btDownload=(ImageButton) findViewById(R.id.music_playing_download);
+		view=View.inflate(this, R.layout.music_playing_lv, null);
+		lvMusic=(ListView) view.findViewById(R.id.playing_lv);
 	}
 
 	private void loadlistener() {
@@ -97,7 +112,8 @@ public class MusicPlaying extends Activity{
 		btBack.setOnClickListener(listener);
 		btMenu.setOnClickListener(listener);
 		btDownload.setOnClickListener(listener);
-		
+		lvMusic.setOnItemClickListener(listener);
+
 	}
 	private void loaddate() {
 		app=(App) getApplication();
@@ -108,6 +124,9 @@ public class MusicPlaying extends Activity{
 		filter.addAction(Control.UPDSTE_NOW_TIME);
 		// 加载数据
 		registerReceiver(Playreceiver, filter);
+		List<Music> musics=App.mapMusics.get(app.getMusicMode());
+		adapter=new MusicAdapter(this, musics);
+		lvMusic.setAdapter(adapter);
 	}
 	@Override
 	protected void onResume() {
@@ -120,7 +139,7 @@ public class MusicPlaying extends Activity{
 	int x;
 	private List<Lrc> lrvs;
 	private LrcAdapter lrcAdapter;
-	public class Listener implements OnClickListener,OnSeekBarChangeListener{
+	public class Listener implements OnClickListener,OnSeekBarChangeListener,OnItemClickListener{
 		@Override
 		public void onClick(View v) {
 			// 单机事件
@@ -141,6 +160,7 @@ public class MusicPlaying extends Activity{
 				finish();
 				break;
 			case R.id.music_playing_menu:
+				lvMusic();
 				break;
 			case R.id.music_playing_download:
 				downLoad();
@@ -177,12 +197,22 @@ public class MusicPlaying extends Activity{
 			intent.putExtra("seek_to", seekBar.getProgress());
 			sendBroadcast(intent);
 		}
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+			// TODO Auto-generated method stub
+			Intent intent=new Intent();
+			intent.setAction(Control.PLAY_POSITION);
+			intent.putExtra("play_position", arg2);
+			intent.putExtra("lien_name",app.getMusicMode());
+			sendBroadcast(intent);
+		}
 	}
 	protected class PlayBroad extends BroadcastReceiver{
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			String action=intent.getAction();
 			if(action.equals(Control.NOW_PLAY)){
+				adapter.notifyDataSetChanged();
 				fixed();
 				btPlayOrPause.setImageResource(R.drawable.pause_selector);
 			}else if(action.equals(Control.NOW_PAUSE)){
@@ -205,7 +235,18 @@ public class MusicPlaying extends Activity{
 		if(s==null)s=info.getArtist_480_800();
 		loadImgBg(s);
 	}
-	
+
+	public void lvMusic() {
+		// TODO Auto-generated method stub
+		if(popuwindow==null){
+			popuwindow=new PopupWindow(view, LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT,true);
+			Drawable drawable = getResources().getDrawable(R.drawable.ic_window_bg);
+			popuwindow.setBackgroundDrawable(drawable);
+			popuwindow.showAsDropDown(btMenu, 0, 500);
+		}else{
+			popuwindow.showAsDropDown(btMenu, 0, 500);
+		}
+	}
 	public void downLoad() {
 		// TODO Auto-generated method stub
 		if(app.getMusicMode()==666){
@@ -254,7 +295,7 @@ public class MusicPlaying extends Activity{
 			}
 		});
 	}
-	
+
 	private void loadImgBg(String s) {
 		// TODO Auto-generated method stub
 		if(s==null||s.equals(""))return;

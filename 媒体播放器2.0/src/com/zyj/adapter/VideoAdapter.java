@@ -3,11 +3,13 @@ package com.zyj.adapter;
 import java.util.List;
 
 import com.zyj.example.Video;
+import com.zyj.main.VideoPlayActivity;
 import com.zyj.utils.BitmapUtils;
 import com.zyj.utils.DateTimeUtils;
 import com.zyj.zyj.R;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnBufferingUpdateListener;
@@ -21,16 +23,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
-public class VideoAdapter  extends MyAdapter<Video>{
+public class VideoAdapter  extends MyAdapter<Video> {
 
 	public VideoAdapter(Context context, List<Video> data) {
 		super(context, data);
 		// TODO Auto-generated constructor stub
 	}
+	
 	private Holder holders;
 	@Override
 	public View getView(int position, View layout, ViewGroup parent) {
@@ -47,6 +50,7 @@ public class VideoAdapter  extends MyAdapter<Video>{
 		load(holder,video);
 		return layout;
 	}
+	
 	private void load(final Holder holder, final Video video) {
 		// TODO Auto-generated method stub
 		holder.tvTitle.setText(video.getTitle());
@@ -54,9 +58,9 @@ public class VideoAdapter  extends MyAdapter<Video>{
 		holder.imPlay.setVisibility(View.VISIBLE);
 		holder.pvCache.setVisibility(View.GONE); 
 		holder.imgBg.setVisibility(View.VISIBLE);
-		holder.imPlay.setImageResource(R.drawable.ic_play_pressed);
+		holder.imPlay.setImageResource(R.drawable.ic_play_normal);
 		try {
-			BitmapUtils.loadBitmap(video.getCover(), holder.imgBg);
+			BitmapUtils.loadBitmap(video.getCover(), holder);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -67,16 +71,18 @@ public class VideoAdapter  extends MyAdapter<Video>{
 				if(!holder.isplay){
 					if(holders!=null){
 						holders.imPlay.setVisibility(View.VISIBLE);
-						holders.imPlay.setImageResource(R.drawable.ic_play_pressed);
+						holders.imPlay.setImageResource(R.drawable.ic_play_normal);
 						holders.pvCache.setVisibility(View.GONE); 
 						holders.imgBg.setVisibility(View.VISIBLE);
 						holders.vvVideo.stopPlayback();
 						holders.isplay=false;
+						holders.isload=false;
 					}
-					String url=video.getMp4Hd_url();
-					holder.imPlay.setImageResource(R.drawable.ic_pause_pressed);
+					
+					holder.imPlay.setImageResource(R.drawable.ic_pause_normal);
 					holder.imPlay.setVisibility(View.GONE); 
 					holder.pvCache.setVisibility(View.VISIBLE); 
+					String url=video.getMp4Hd_url();
 					if(url==null||url.equals("")||url.equals("null")){
 						url=video.getMp4_url();
 					}
@@ -90,10 +96,10 @@ public class VideoAdapter  extends MyAdapter<Video>{
 				}else{
 					if(holder.vvVideo.isPlaying()){
 						holder.vvVideo.pause();
-						holder.imPlay.setImageResource(R.drawable.ic_play_pressed);
+						holder.imPlay.setImageResource(R.drawable.ic_play_normal);
 					}else{
 						holder.vvVideo.start();
-						holder.imPlay.setImageResource(R.drawable.ic_pause_pressed);
+						holder.imPlay.setImageResource(R.drawable.ic_pause_normal);
 
 					}
 
@@ -116,7 +122,6 @@ public class VideoAdapter  extends MyAdapter<Video>{
 				}
 			}
 		});
-
 		holder.vvVideo.setOnPreparedListener(new OnPreparedListener() {
 			@Override
 			public void onPrepared(MediaPlayer mp) {
@@ -124,6 +129,7 @@ public class VideoAdapter  extends MyAdapter<Video>{
 				holder.imgBg.setVisibility(View.GONE);
 				holder.isload=true;
 				holder.tvSumTime.setText(DateTimeUtils.getDateFormat(holder.vvVideo.getDuration()));
+				holder.skVideo.setMax(holder.vvVideo.getDuration());
 				// TODO Auto-generated method stub
 				mp.setOnBufferingUpdateListener(new OnBufferingUpdateListener() {
 					int currentPosition, duration;
@@ -133,28 +139,65 @@ public class VideoAdapter  extends MyAdapter<Video>{
 						// 获得当前播放时间和当前视频的长度
 						currentPosition = holder.vvVideo.getCurrentPosition();
 						duration = holder.vvVideo.getDuration(); 
-						int time = ((currentPosition * 100) / duration);
 						// 设置进度条的主要进度，表示当前的播放时间
 						holder.tvNowTime.setText(DateTimeUtils.getDateFormat(currentPosition));
-						holder.skVideo.setProgress(time);
+						holder.skVideo.setProgress(currentPosition);
 						// 设置进度条的次要进度，表示视频的缓冲进度
+						percent=percent*duration/100;
 						holder.skVideo.setSecondaryProgress(percent);
 					}
 				});
 			}
 		});
+		holder.skVideo.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				// TODO Auto-generated method stub
+				holder.vvVideo.seekTo(seekBar.getProgress());
+				holder.vvVideo.start();
+			}
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+				// TODO Auto-generated method stub
+				holder.tvNowTime.setText(DateTimeUtils.getDateFormat(progress));
+			}
+		});
+		holder.fangda.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent=new  Intent(getContext(),VideoPlayActivity.class);
+				String url=video.getMp4Hd_url();
+				if(url==null||url.equals("")||url.equals("null")){
+					url=video.getMp4_url();
+				}
+				intent.putExtra("url", url);
+				intent.putExtra("time",holder.vvVideo.getCurrentPosition());
+				holder.vvVideo.pause();
+				holder.imPlay.setImageResource(R.drawable.ic_play_normal);
+				holder.imgBg.setVisibility(View.VISIBLE);
+				getContext().startActivity(intent);
+			}
+		});
 	}
-	class Holder{
-		Button btRlVisi;
-		TextView tvTitle;
-		VideoView vvVideo;
-		ImageView imPlay;
-		TextView tvNowTime;
-		TextView tvSumTime;
-		SeekBar skVideo;
-		ProgressBar pvCache;
-		RelativeLayout rlBar;
-		ImageView imgBg;
+	public class Holder{
+		public Button btRlVisi;
+		public TextView tvTitle;
+		public VideoView vvVideo;
+		public ImageView imPlay;
+		public TextView tvNowTime;
+		public TextView tvSumTime;
+		public SeekBar skVideo;
+		public ProgressBar pvCache;
+		public RelativeLayout rlBar;
+		public ImageView imgBg;
+		public ImageView fangda;
 		boolean isload;
 		boolean isplay;
 		public Holder(View layout) {
@@ -168,6 +211,7 @@ public class VideoAdapter  extends MyAdapter<Video>{
 			skVideo=(SeekBar) layout.findViewById(R.id.video_seekbar);
 			imgBg=(ImageView) layout.findViewById(R.id.video_bg);
 			btRlVisi=(Button) layout.findViewById(R.id.video_rl_visi);
+			fangda=(ImageView)layout.findViewById(R.id.video_fangda);
 		}
 	}
 }

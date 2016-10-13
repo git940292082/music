@@ -32,6 +32,7 @@ public class MusicModel {
 			@Override
 			protected List<Music> doInBackground(String... params) {
 				// TODO Auto-generated method stub
+				
 				String musicUrl=UrlFactory.getMusicUrl(type,offset, size);
 				try {
 					InputStream in=HttpUntils.getInputStream(musicUrl);
@@ -51,6 +52,7 @@ public class MusicModel {
 		asy.execute();
 		App.asy=asy;
 	}
+	
 	public void getSongIdInfo(final String songId,final OnSongIdInfo songidInfo) {
 		// TODO Auto-generated method stub
 		new AsyncTask<String, String,Music>(){

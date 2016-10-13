@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.xutils.x;
+
 import com.zyj.dao.AudioFratory;
 import com.zyj.dao.IDao;
 import com.zyj.example.Music;
@@ -40,6 +42,7 @@ public class App extends Application{
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
+		x.Ext.init(this);
 		mapMusics=new HashMap<Integer, List<Music>>();
 		IDao<Music> musicDao=AudioFratory.getMusics(getContentResolver());
 		mapMusics.put(666,musicDao.getMedias(null, null));

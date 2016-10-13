@@ -29,15 +29,16 @@ public class PictureMenuFram extends Fragment implements OnItemClickListener {
 
 		if(layout==null){
 			layout= inflater.inflate(R.layout.picture_menu_fram, container, false);
+			IDao<Pictures> pictureDao=AudioFratory.getPictures(getActivity().getContentResolver());
+			App.Pictures.addAll(pictureDao.getMedias(null, null));
+			gvPicture=(GridView)layout.findViewById(R.id.picture_gv);
+			pictureAdapter=new PictureAdapter(App.Pictures, getActivity());
+			gvPicture.setAdapter(pictureAdapter);
+			gvPicture.setOnItemClickListener(this);
 		}else{
 			  ((ViewGroup) layout.getParent()).removeView(layout); 
 		}
-		IDao<Pictures> pictureDao=AudioFratory.getPictures(getActivity().getContentResolver());
-		App.Pictures.addAll(pictureDao.getMedias(null, null));
-		gvPicture=(GridView)layout.findViewById(R.id.picture_gv);
-		pictureAdapter=new PictureAdapter(App.Pictures, getActivity());
-		gvPicture.setAdapter(pictureAdapter);
-		gvPicture.setOnItemClickListener(this);
+		
 		return layout;  
 	}
 

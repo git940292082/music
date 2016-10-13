@@ -23,11 +23,12 @@ public class MineMenuFram extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {  
 		if(layout==null){
 			layout= inflater.inflate(R.layout.mine_menu_fram, container, false);
+			loadView();
+			loadListener();
 		}else{
 			  ((ViewGroup) layout.getParent()).removeView(layout); 
 		}
-		loadView();
-		loadListener();
+		
 		return layout;  
 	} 
 	private void loadView() {
