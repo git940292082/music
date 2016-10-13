@@ -1,0 +1,88 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VideoPlayActivity" >
+
+    <VideoView
+        android:id="@+id/video_vv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <Button
+        android:id="@+id/video_rl_visi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null" />
+
+    <!-- 进度条 -->
+
+    <RelativeLayout
+        android:id="@+id/video_rl_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:visibility="gone"
+        android:background="#6000"
+        android:minHeight="25dp" >
+
+        <TextView
+            android:id="@+id/video_nowtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:padding="4dp"
+            android:text="00:00"
+            android:textColor="#fff"
+            android:textSize="12sp" />
+
+        <SeekBar
+            android:id="@+id/video_seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/video_sumtime"
+            android:layout_toRightOf="@+id/video_nowtime"
+            android:max="100"
+            android:maxHeight="2dp"
+            android:minHeight="2dp"
+            android:progressDrawable="@drawable/bar"
+            android:thumb="@drawable/ic_video_thumb"
+            android:thumbOffset="1dp" />
+
+        <ImageView
+            android:id="@+id/video_fangda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_video_fangda" />
+
+        <TextView
+            android:id="@+id/video_sumtime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/video_fangda"
+            android:gravity="center"
+            android:padding="4dp"
+            android:text="00:00"
+            android:textColor="#fff"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/video_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:scaleType="center"
+        android:visibility="gone"
+        android:src="@drawable/ic_pause_normal" />
+
+</RelativeLayout>
