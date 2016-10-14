@@ -95,6 +95,7 @@ public class MusicMenuFram extends Fragment implements OnClickListener,OnPageCha
 		enabled(btMusicLocal);	
 		Log.i("123", "menu");
 	}
+	
 	private void show(Fragment fms){
 		FragmentManager fm = getFragmentManager();  
 		// ¿ªÆôFragmentÊÂÎñ  
@@ -150,6 +151,7 @@ public class MusicMenuFram extends Fragment implements OnClickListener,OnPageCha
 		}
 	}
 	void fixed(){
+		if(app.getMusic()==null)return;
 		Music music = app.getMusic();
 		SeekBar.setMax(music.getFile_duration());
 		tvTitle.setText(music.getTitle());
@@ -187,6 +189,8 @@ public class MusicMenuFram extends Fragment implements OnClickListener,OnPageCha
 	public void onDestroy() {
 		// TODO Auto-generated method stub
 		getActivity().unregisterReceiver(receiver);
+		intent.setAction(Control.BACK);
+		getActivity().sendBroadcast(intent);
 		super.onDestroy();
 	}
 
@@ -207,9 +211,12 @@ public class MusicMenuFram extends Fragment implements OnClickListener,OnPageCha
 	@Override
 	public void onResume() {
 		// TODO Auto-generated method stub
-		super.onResume();
+		fixed();
+		SeekBar.setProgress(app.getNowTime());
+		tvNowTime.setText(DateTimeUtils.getDateFormat(app.getNowTime()));
 		intent.setAction(Control.ACTIVITY_NOBACK);
 		getActivity().sendBroadcast(intent);
+		super.onResume();
 	}
 	@Override
 	public void onPageScrollStateChanged(int arg0) {

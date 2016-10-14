@@ -98,6 +98,7 @@ public class VideoPlayActivity extends Activity {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				// TODO Auto-generated method stub
+				
 				video.setVideoURI(uri);
 				video.requestFocus(); 
 				video.seekTo(seekBar.getProgress());

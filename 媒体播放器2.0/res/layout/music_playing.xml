@@ -128,66 +128,62 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1.5"
-            android:background="#5000"
-            >
+            android:background="#5000" >
+
             <ImageButton
                 android:id="@+id/music_playing_previous"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/music_playing_playorpause"
                 android:background="@null"
                 android:scaleType="centerInside"
-                android:layout_toLeftOf="@+id/music_playing_playorpause"
-                android:src="@drawable/previous_selector" 
-                android:layout_centerVertical="true"/>
+                android:src="@drawable/previous_selector" />
 
             <ImageButton
                 android:id="@+id/music_playing_playorpause"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:layout_centerInParent="true"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:background="@null"
                 android:scaleType="centerInside"
-                android:layout_centerInParent="true"
                 android:src="@drawable/play_selector" />
 
             <ImageButton
                 android:id="@+id/music_playing_next"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/music_playing_playorpause"
+                android:background="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/next_selector" />
+
+            <ImageButton
+                android:id="@+id/music_playing_fenxiang"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
                 android:background="@null"
                 android:layout_centerVertical="true"
-                android:scaleType="centerInside"
-                android:layout_toRightOf="@+id/music_playing_playorpause"
-                android:src="@drawable/next_selector" />
+                  android:scaleType="centerCrop"
+                android:src="@drawable/ic_fenxiang"
+                android:layout_marginRight="10dp" />
+
             <ImageButton
                 android:id="@+id/music_playing_download"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@null"
-                android:scaleType="centerInside"
-                android:layout_marginLeft="20dp"
-                android:src="@drawable/ic_download"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/music_playing_next" />
+                android:layout_toLeftOf="@+id/music_playing_fenxiang"
+                android:background="@null"
+                android:layout_marginRight="20dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_download" />
 
         </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/music_play_layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5"
-            android:background="#6999" >
-
-            <TextView
-                android:id="@+id/music_play_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:textColor="#fff"
-                android:textSize="14sp" />
-        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

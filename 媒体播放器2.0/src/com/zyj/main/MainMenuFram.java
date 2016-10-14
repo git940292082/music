@@ -27,7 +27,6 @@ public class MainMenuFram extends FragmentActivity implements OnPageChangeListen
 	private PictureMenuFram pictureframe=new PictureMenuFram();
 	private MineMenuFram mineframe=new MineMenuFram();
 	private FramVideo videoFrame=new FramVideo();
-	private Intent i;
 	private ViewPager fragmentPage;
 	private FragmentAdapter fragmentAdapter;
 	@Override
@@ -41,9 +40,6 @@ public class MainMenuFram extends FragmentActivity implements OnPageChangeListen
 	}
 	private void loadData() {
 		// TODO Auto-generated method stub
-		i=new Intent();
-		i.setAction("music.zyj.action.musicservice2.0");
-		startService(i);
 		fragmentAdapter=new FragmentAdapter(getSupportFragmentManager());
 		fragmentPage.offsetLeftAndRight(4);
 		fragmentPage.setAdapter(fragmentAdapter);
@@ -127,7 +123,6 @@ public class MainMenuFram extends FragmentActivity implements OnPageChangeListen
 			builder.setNeutralButton("È·¶¨", new AlertDialog.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					stopService(i);
 					finish();
 				}
 			});
@@ -143,7 +138,6 @@ public class MainMenuFram extends FragmentActivity implements OnPageChangeListen
 		// TODO Auto-generated method stub
 
 	}
-
 	@Override
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
 		// TODO Auto-generated method stub

@@ -90,9 +90,14 @@ public class MusicLineFramList1 extends Fragment implements OnItemClickListener,
 			mode();
 
 		}else{
-			adapter=new LineMusicAdapter(getActivity(),musics);
-			lvMusics.setAdapter(adapter);
-			fixed();
+			try {
+				adapter=new LineMusicAdapter(getActivity(),musics);
+				lvMusics.setAdapter(adapter);
+				fixed();
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
 		}
 	}
 	private void mode() {

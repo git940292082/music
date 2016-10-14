@@ -24,5 +24,7 @@ public class Control {
 	public static final String COME_BACK="con.zyj.music.activity_comjkle_bacdfsyhdsfhdsfk";
 	public static final String RE_START="con.zyj.music.activity_re_start";
 	public static final String MUSIC_LINE_PLAY="con.zyj.music.activity_re_startfgujggjgn";
+	public static final String BACK="con.sdafgsdafdzyj.music.activity_re_startfgujggjgn";
+	public static final String PAUSE="con.sdafgsdafdzyj.musfdsgsdfgdsfic.activity_re_startfgujggjgn";
 	
 }

@@ -37,5 +37,4 @@ public class Lrc {
 		return context;
 	}
 	
-	
 }

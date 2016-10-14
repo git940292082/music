@@ -5,6 +5,7 @@ import java.util.List;
 import com.zyj.example.Video;
 import com.zyj.main.VideoPlayActivity;
 import com.zyj.utils.BitmapUtils;
+import com.zyj.utils.Control;
 import com.zyj.utils.DateTimeUtils;
 import com.zyj.zyj.R;
 
@@ -78,7 +79,6 @@ public class VideoAdapter  extends MyAdapter<Video> {
 						holders.isplay=false;
 						holders.isload=false;
 					}
-					
 					holder.imPlay.setImageResource(R.drawable.ic_pause_normal);
 					holder.imPlay.setVisibility(View.GONE); 
 					holder.pvCache.setVisibility(View.VISIBLE); 
@@ -93,6 +93,9 @@ public class VideoAdapter  extends MyAdapter<Video> {
 					holder.vvVideo.requestFocus(); 
 					holder.vvVideo.start();
 					holders=holder;
+					Intent intent=new Intent();
+					intent.setAction(Control.PAUSE);
+					getContext().sendBroadcast(intent);
 				}else{
 					if(holder.vvVideo.isPlaying()){
 						holder.vvVideo.pause();

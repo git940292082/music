@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
+import com.zyj.app.App;
 import com.zyj.utils.HttpUntils;
 import com.zyj.zyj.R;
 
@@ -83,7 +84,7 @@ public class DownloadService  extends IntentService{
 			}
 			out.close();
 			sendOver("下载完成："+file.getName(),"点击打开", "下载完成："+file.getName());
-			
+			App.load(getContentResolver());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

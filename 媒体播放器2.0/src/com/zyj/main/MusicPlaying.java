@@ -51,6 +51,12 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+
+import com.tencent.connect.share.QQShare;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
+
 public class MusicPlaying extends Activity{
 	private TextView tvTitle;
 	private TextView tvName;
@@ -63,7 +69,6 @@ public class MusicPlaying extends Activity{
 	private PlayBroad Playreceiver;
 	private Intent intent;
 	private TextView btBack;
-	LinearLayout layout;
 	private App app;
 	private ImageView bg;
 	private ListView lvLrc;
@@ -73,6 +78,7 @@ public class MusicPlaying extends Activity{
 	private ListView lvMusic;
 	private PopupWindow popuwindow;
 	private MusicAdapter adapter;
+	private ImageButton fenxiang;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -96,10 +102,10 @@ public class MusicPlaying extends Activity{
 		bg=(ImageView)findViewById(R.id.music_playing_bg);
 		btMenu=(Button)findViewById(R.id.music_playing_menu);
 		lvLrc=(ListView)findViewById(R.id.music_playing_lv_lrc);
-		layout=(LinearLayout) findViewById(R.id.music_play_layout);
 		btDownload=(ImageButton) findViewById(R.id.music_playing_download);
 		view=View.inflate(this, R.layout.music_playing_lv, null);
 		lvMusic=(ListView) view.findViewById(R.id.playing_lv);
+		fenxiang = (ImageButton)findViewById(R.id.music_playing_fenxiang);
 	}
 
 	private void loadlistener() {
@@ -113,6 +119,7 @@ public class MusicPlaying extends Activity{
 		btMenu.setOnClickListener(listener);
 		btDownload.setOnClickListener(listener);
 		lvMusic.setOnItemClickListener(listener);
+		fenxiang.setOnClickListener(listener);
 
 	}
 	private void loaddate() {
@@ -139,6 +146,7 @@ public class MusicPlaying extends Activity{
 	int x;
 	private List<Lrc> lrvs;
 	private LrcAdapter lrcAdapter;
+	private Tencent mTencent;
 	public class Listener implements OnClickListener,OnSeekBarChangeListener,OnItemClickListener{
 		@Override
 		public void onClick(View v) {
@@ -165,6 +173,8 @@ public class MusicPlaying extends Activity{
 			case R.id.music_playing_download:
 				downLoad();
 				break;
+			case R.id.music_playing_fenxiang:
+				fenxiang();
 			}
 		}
 		@Override
@@ -235,7 +245,40 @@ public class MusicPlaying extends Activity{
 		if(s==null)s=info.getArtist_480_800();
 		loadImgBg(s);
 	}
-
+	public void fenxiang() {
+		//分享
+		if(app.getMusicMode()==666){
+			return;
+		}
+		Music music=app.getMusic();
+		
+		mTencent = Tencent.createInstance("222222", this);
+		final Bundle params = new Bundle();
+		params.putInt(QQShare.SHARE_TO_QQ_KEY_TYPE, QQShare.SHARE_TO_QQ_TYPE_DEFAULT);
+		params.putString(QQShare.SHARE_TO_QQ_TITLE, music.getTitle());//标题
+		params.putString(QQShare.SHARE_TO_QQ_SUMMARY, music.getAuthor()+"\n"+lrvs.toString());
+		params.putString(QQShare.SHARE_TO_QQ_TARGET_URL, music.getSongUrls().get(0).getFile_link());
+		params.putString(QQShare.SHARE_TO_QQ_IMAGE_URL,music.getPic_small());
+		IUiListener myListener=new IUiListener() {
+			@Override
+			public void onError(UiError arg0) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getApplicationContext(), arg0.toString(), 0).show();
+			}
+			@Override
+			public void onComplete(Object arg0) {
+				// TODO Auto-generated method stub
+				Toast.makeText(getApplicationContext(), "分享成功", 0).show();
+			}
+			
+			@Override
+			public void onCancel() {
+				// TODO Auto-generated method stub
+				Toast.makeText(getApplicationContext(), "取消分享", 0).show();
+			}
+		};
+		mTencent.shareToQQ(this, params, myListener);
+	}
 	public void lvMusic() {
 		// TODO Auto-generated method stub
 		if(popuwindow==null){

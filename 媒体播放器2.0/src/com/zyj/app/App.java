@@ -21,7 +21,9 @@ import com.zyj.utils.Control;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -44,11 +46,17 @@ public class App extends Application{
 		// TODO Auto-generated method stub
 		x.Ext.init(this);
 		mapMusics=new HashMap<Integer, List<Music>>();
-		IDao<Music> musicDao=AudioFratory.getMusics(getContentResolver());
-		mapMusics.put(666,musicDao.getMedias(null, null));
+		load(getContentResolver());
 		Control.share=getSharedPreferences("data",MODE_PRIVATE);
 		context=getApplicationContext();
+		Intent i = new Intent();
+		i.setAction("music.zyj.action.musicservice2.0");
+		startService(i);
 		super.onCreate();
+	}
+	public static void load(ContentResolver conres){
+		IDao<Music> musicDao=AudioFratory.getMusics(conres);
+		mapMusics.put(666,musicDao.getMedias(null, null));
 	}
 	public Music getMusic() {
 		return music;
@@ -80,5 +88,4 @@ public class App extends Application{
 	public void setNowTime(int nowTime) {
 		NowTime = nowTime;
 	}
-	
 }

@@ -73,6 +73,8 @@ public class MusicService  extends Service {
 		inf.addAction(Control.ACTIVITY_INBACK);
 		inf.addAction(Control.ACTIVITY_NOBACK);
 		inf.addAction(Control.MUSIC_LINE_PLAY);
+		inf.addAction(Control.BACK);
+		inf.addAction(Control.PAUSE);
 		registerReceiver(musicControlBroad, inf);
 		receiver=new HeadsetBroadService();
 		IntentFilter headset=new IntentFilter();
@@ -112,6 +114,7 @@ public class MusicService  extends Service {
 	//ÔÝÍ£
 	public void pauses(){
 		NowTime=player.getCurrentPosition();
+		app.setNowTime(NowTime);
 		player.pause();
 		i.setAction(Control.NOW_PAUSE);
 		sendBroadcast(i);
@@ -202,7 +205,9 @@ public class MusicService  extends Service {
 				if(player.isPlaying()){
 					pauses();
 				}else{
-					plays();
+					player.start();
+					i.setAction(Control.NOW_PLAY);
+					sendBroadcast(i);
 					startBarMusicThread();
 				}
 			}else if(a.equals(Control.PREVIOUS)){ //ÉÏÒ»Ê×
@@ -243,6 +248,17 @@ public class MusicService  extends Service {
 				}
 				i.putExtra("play_position", NowPosition);
 				sendBroadcast(i);
+			}else if(a.equals(Control.BACK)){
+				app.setPosition(NowPosition);
+				app.setMusicMode(musicType);
+				if(player.isPlaying()){
+					app.setNowTime(NowTime);
+					pauses();
+				}
+			}else if(a.equals(Control.PAUSE)){
+				if(player.isPlaying()){
+					pauses();
+				}
 			}
 		}
 	}
