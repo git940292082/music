@@ -43,6 +43,7 @@ public class MusicLineFramList1 extends Fragment implements OnItemClickListener,
 	private Intent i=new Intent();
 	private App app;
 	private BroadcastReceiver receiver;
+	protected boolean isload;
 	public MusicLineFramList1(String string, int i, int j) {
 		// TODO Auto-generated constructor stub
 		title=string;
@@ -116,6 +117,7 @@ public class MusicLineFramList1 extends Fragment implements OnItemClickListener,
 				MusicLineFramList1.this.musics=musics;
 				App.mapMusics.put(type,musics);
 				// TODO: handle exception
+				isload=true;
 				fixed();
 			}
 		});
@@ -125,7 +127,14 @@ public class MusicLineFramList1 extends Fragment implements OnItemClickListener,
 		// TODO Auto-generated method stub
 		show(arg2);
 	}
-	
+	@Override
+	public void onResume() {
+		// TODO Auto-generated method stub
+		if(isload){
+			fixed();
+		}
+		super.onResume();
+	}
 	protected void show(int arg2) {
 		i.setAction(Control.PLAY_POSITION);
 		i.putExtra("play_position", arg2);
@@ -145,14 +154,14 @@ public class MusicLineFramList1 extends Fragment implements OnItemClickListener,
 		// TODO Auto-generated method stub
 		int position=app.getPosition();
 		int mode=app.getMusicMode();
+		for (Music music : musics) {
+			music.setPlaying(false);
+		}
 		if(mode==type){
-			for (Music music : musics) {
-				music.setPlaying(false);
-			}
 			Log.i("123", position+mode+"");
 			musics.get(position).setPlaying(true);
-			adapter.notifyDataSetChanged();
 		}
+		adapter.notifyDataSetChanged();
 	}
 	@Override
 	public void onDestroy() {

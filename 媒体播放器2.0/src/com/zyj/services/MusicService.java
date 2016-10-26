@@ -37,6 +37,7 @@ public class MusicService  extends Service {
 	private HeadsetBroadService receiver;
 	private List<Music> musics;
 	private App app;
+	protected boolean isPlay;
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		// TODO Auto-generated method stub
@@ -55,7 +56,9 @@ public class MusicService  extends Service {
 			@Override
 			public void onCompletion(MediaPlayer mp) {
 				// TODO Auto-generated method stub
-				nexts();
+				if(isPlay){
+					nexts();
+				}
 				Log.i("123", "播放完");
 			}	
 		});
@@ -174,11 +177,13 @@ public class MusicService  extends Service {
 	public void plays(){
 		new  Thread(){public void run() {
 			try {
+				isPlay=false;
 				player.reset();
 				player.setDataSource(musics.get(NowPosition).getPath());
 				player.prepare();
 				player.seekTo(NowTime);
 				player.start();
+				app.setNowTime(0);
 				Log.i("123","播放成功"+NowPosition );
 			} catch (Exception e) {
 			}
@@ -188,6 +193,7 @@ public class MusicService  extends Service {
 			app.setPosition(NowPosition);
 			app.setMusicMode(musicType);
 			sendBroadcast(i);
+			isPlay=true;
 		};}.start();
 	}
 	@Override

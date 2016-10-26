@@ -138,6 +138,9 @@ public class MusicPlaying extends Activity{
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
+		fixed();
+		musicSeekBar.setProgress(app.getNowTime());
+		tvNowTime.setText(DateTimeUtils.getDateFormat(app.getNowTime()));
 		intent=new Intent();
 		intent.setAction(Control.ACTIVITY_NOBACK);
 		sendBroadcast(intent);
@@ -238,6 +241,7 @@ public class MusicPlaying extends Activity{
 		tvName.setText(music.getAuthor());
 		musicSeekBar.setMax(music.getFile_duration());
 		tvDuraction.setText(DateTimeUtils.getDateFormat(music.getFile_duration()));
+		
 		SongInfo info=music.getSongInfo();
 		lrc(music.getLrclink());
 		if(info==null)return; 

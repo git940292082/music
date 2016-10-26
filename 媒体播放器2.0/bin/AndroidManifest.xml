@@ -91,7 +91,7 @@
 
         <activity
             android:name="com.zyj.main.VideoPlayActivity"
-            android:screenOrientation="landscape" >
+            android:configChanges="orientation|keyboardHidden|screenSize" >
         </activity>
         <activity
             android:name="com.tencent.tauth.AuthActivity"

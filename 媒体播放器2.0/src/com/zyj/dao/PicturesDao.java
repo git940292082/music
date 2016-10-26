@@ -35,7 +35,6 @@ public class PicturesDao implements IDao<Pictures>{
 					picture.setHeight(csdb.getInt(3));
 					picures.add(picture);
 				}
-				
 			}while(csdb.moveToNext());
 		}
 		return picures;}

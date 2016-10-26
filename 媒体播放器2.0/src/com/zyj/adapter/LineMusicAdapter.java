@@ -17,6 +17,7 @@ public class LineMusicAdapter extends MyAdapter<Music> {
 		super(context, data);
 		// TODO Auto-generated constructor stub
 	}
+	
 	@Override
 	public int getViewTypeCount() {
 		// TODO Auto-generated method stub
